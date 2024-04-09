@@ -19,6 +19,9 @@ body{
     height: 100%;
 }
 
+.bodyDark{
+    background-color: var(--color-secundario-oscuro);}
+
 .Container-Mayor{
 
     display: grid;
