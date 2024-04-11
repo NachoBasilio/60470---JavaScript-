@@ -22,34 +22,50 @@ const ActualizadoraDeCarrito = () => {
     ContenedorDeCarrito.innerHTML = ""
     
     Carrito.forEach((producto)=>{
-        ContenedorDeCarrito.innerHTML +=`
-        <div>
-            <h3> ${producto.producto} </h3>
-            <p> ${producto.cantidad} </p>
-            <button class="Boton-borrador"> Borrar </button>       
-        </div>`
-    })
-    const BotonesBorrar = document.getElementsByClassName("Boton-borrador")
+        const contenedor = document.createElement("div")
+        const titulo = document.createElement("h3")
+        const cantidad = document.createElement("p")
+        const botonEliminar = document.createElement("button")
 
-    const BotonesBorrarArray = Array.from(BotonesBorrar) 
-    
-    BotonesBorrarArray.forEach((boton)=>{
-        boton.addEventListener("click", agregadoraDeBorrador)
+        titulo.innerText = producto.producto
+        cantidad.innerText = producto.cantidad
+        botonEliminar.innerText = "Borrar"
+
+
+        contenedor.appendChild(titulo)
+        contenedor.appendChild(cantidad)
+        contenedor.appendChild(botonEliminar)
+
+        botonEliminar.addEventListener("click", (e)=>{
+            agregadoraDeBorrador(e, producto)
+        })
+
+        ContenedorDeCarrito.appendChild(contenedor)
+        // ContenedorDeCarrito.innerHTML +=`
+        // <div>
+        //     <h3> ${producto.producto} </h3>
+        //     <p> ${producto.cantidad} </p>
+        //     <button class="Boton-borrador"> Borrar </button>       
+        // </div>`
     })
+    // const BotonesBorrar = document.getElementsByClassName("Boton-borrador")
+
+    // const BotonesBorrarArray = Array.from(BotonesBorrar) 
+    
+    // BotonesBorrarArray.forEach((boton)=>{
+    //     boton.addEventListener("click", agregadoraDeBorrador)
+    // })
 
     localStorage.setItem("carrito", JSON.stringify(Carrito))
 
-    console.table(Carrito)
-
 }
 
-const agregadoraDeBorrador = (e)=>{
-    const elProductoElegido = e.target.parentElement.children[0].innerText
+const agregadoraDeBorrador = (e, producto)=>{
     const Padre = e.target.parentElement
     Padre.remove()
     
     const ArrayDeProductos = Carrito.map(producto => producto.producto)
-    const indice = ArrayDeProductos.indexOf(elProductoElegido)
+    const indice = ArrayDeProductos.indexOf(producto.producto)
 
     
     if(Carrito[indice].cantidad == 1){
