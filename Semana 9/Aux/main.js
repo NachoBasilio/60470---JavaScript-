@@ -1,4 +1,33 @@
-Swal.fire({
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Swal.fire({
     title: "Hola",//Sirve para escribir un titulo
     text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati quibusdam, et laudantium veritatis illo officiis consequatur porro ex laborum minus!", //Sirve para agregar texto por debajo
     html: "<h1>Buenaaas</h1>",//Remplaza el texto por html
@@ -24,7 +53,21 @@ Swal.fire({
     inputValue: "",//Soy un valor por defecto
     inputOptions: {
         //Somos opciones por si el input es tipo select
-    }
+    },
+
+    //showConfirmButton: Adivinen
+    //confirmButtonColor:
+    //confirmButtonAriaLabel: Para ayudar a la gente que no puedan ver bien 
+
+    //showCancelButton: Adivinen
+    //cancelButtonColor:
+    //cancelButtonText:
+    //cancelButtonAriaLabel: Para ayudar a la gente que no puedan ver bien 
+
+    //imageUrl:
+    //imageWidth:
+    //imageHeight:
+    //ImageAlt:
 })
 
 //Cuando queremos guardar un valor lo tenemos que igualar a una constante o algo para llevarnos el valor 
@@ -34,4 +77,5 @@ Swal.fire({
 //     // puedes usar nombreDeLaVariable aquí dentro
 // });
 
-//Hay mas opciones de personalización disponibles. Eso seria su tarea.
+//Hay mas opciones de personalización disponibles. Eso seria su tarea. 
+*/
