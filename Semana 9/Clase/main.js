@@ -60,23 +60,24 @@ function crearTarjetaDeProducto({titulo, precio, imagen, descripcion}){
     `
 }
 
+
 fetch("./info.json")
 .then(datos => {
-    if (!datos.ok) {
-        throw new Error(`¡Error HTTP! estado: ${datos.status}`);
-    } else {
-        return datos.json();
-    }
+   if(!datos.ok){
+    throw new Error("Error al traer los datos")
+   }else{
+    return datos.json() 
+   }
 })
 .then(productos => {
-    productos.articulos.map(producto =>{
+    productos.articulos.forEach(producto => {
         crearTarjetaDeProducto(producto)
     })
     agregarEvento()
 })
 .catch(e => {
-    console.log('Hubo un problema con la operación fetch: ' + e.message);
-});
+    console.error("Hubo un error al operar con fetch " + e.message)
+})
 
 function mostrarCarrito (){
     carritoFisico.innerHTML = ""
@@ -92,13 +93,31 @@ function mostrarCarrito (){
     })
 
     carritoFisico.innerHTML += `<div>
-    <h3>Total: ${miCarrito.calcularTotal()}</h3>
-    <button id="borrar">Terminar Compra</button>
+        <h3>Total: ${miCarrito.calcularTotal()}</h3>
+        <button id="borrar">Terminar Compra</button>
+        <button id="cancelar">Cancelar Compra</button>
     </div>`
+
+    const cancelar = document.getElementById("cancelar")
+    cancelar.addEventListener("click", ()=>{
+        miCarrito.limpiarCarrito();
+        Swal.fire({
+            icon: "error",
+            title: "Su compra fue cancelada con éxito",
+            text: "Espero que vuelva pronto.",
+            footer: '<a href="#">Siempre lo estaremos esperando.</a>'
+        });
+        mostrarCarrito()
+    })
 
     const borrar = document.getElementById("borrar")
     borrar.addEventListener("click", ()=>{
         miCarrito.limpiarCarrito();
+        Swal.fire({
+            title: "¡Compra realizada!",
+            text: "El envió se realizara en la próxima semana.",
+            icon: "success"
+        });
         mostrarCarrito()
     })
 }
@@ -111,14 +130,17 @@ function agregarEvento (){
         boton.addEventListener("click", (e)=>{
             let precio = Number(e.target.parentElement.children[0].innerText)
             let titulo = e.target.parentElement.parentElement.children[0].children[0].innerText
-            console.dir(titulo)
-
+            
             miCarrito.agregarProducto({
                 titulo,
                 precio,
                 cantidad: 0,
             })
-
+            Swal.fire({
+                title: `¡Su producto ${titulo} se agrego correctamente!`,
+                icon: "success",
+                width: "350px"
+              });
             mostrarCarrito()
         })
     })
@@ -127,5 +149,4 @@ function agregarEvento (){
 
 botonCarrito.addEventListener("click", ()=>{
     carritoFisico.classList.toggle('active')
-    mostrarCarrito()
 })
