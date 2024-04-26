@@ -14,10 +14,12 @@ router.get('/', async (req, res) => {
 
 // Crear un nuevo producto
 router.post('/', async (req, res) => {
+  const { titulo, descripcion, precio, imagen } = req.body;
   const product = new Product({
-    name: req.body.name,
-    description: req.body.description,
-    price: req.body.price,
+    titulo,
+    descripcion,
+    precio,
+    imagen
   });
   try {
     const newProduct = await product.save();
@@ -34,14 +36,18 @@ router.get('/:id', getProduct, (req, res) => {
 
 // Actualizar un producto
 router.put('/:id', getProduct, async (req, res) => {
-  if (req.body.name != null) {
-    res.product.name = req.body.name;
+  const { titulo, descripcion, precio, imagen } = req.body;
+  if (titulo != null) {
+    res.product.titulo = titulo;
   }
-  if (req.body.description != null) {
-    res.product.description = req.body.description;
+  if (descripcion != null) {
+    res.product.descripcion = descripcion;
   }
-  if (req.body.price != null) {
-    res.product.price = req.body.price;
+  if (precio != null) {
+    res.product.precio = precio;
+  }
+  if (imagen != null) {
+    res.product.imagen = imagen;
   }
   try {
     const updatedProduct = await res.product.save();
@@ -54,13 +60,14 @@ router.put('/:id', getProduct, async (req, res) => {
 // Eliminar un producto
 router.delete('/:id', getProduct, async (req, res) => {
   try {
-    await res.product.remove();
+    await Product.findByIdAndDelete(req.params.id);
     res.json({ message: 'Product deleted' });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
+// Middleware para obtener un producto por su ID
 async function getProduct(req, res, next) {
   let product;
   try {
