@@ -2,7 +2,12 @@ const elementoPrincipal = document.getElementById("main")
 const botonCarrito = document.getElementById("carrito")
 const carritoFisico = document.getElementById("carritoFisico")
 const productosDOM = document.getElementById("productos")
+const agregadorDeProductos = document.getElementById('productForm')
 const arrayProductos = []
+
+botonCarrito.addEventListener("click", ()=>{
+    carritoFisico.classList.toggle('active')
+})
 
 class CarritoDeCompras {
     constructor() {
@@ -155,20 +160,18 @@ function agregarEvento (){
 
 }
 
-botonCarrito.addEventListener("click", ()=>{
-    carritoFisico.classList.toggle('active')
-})
 
-document.getElementById('productForm').addEventListener('submit', async function(event) {
-    event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+
+agregadorDeProductos.addEventListener('submit', async function(event) {
+    event.preventDefault(); 
     
-    // Obtener los valores del formulario
+
     const titulo = document.getElementById('titulo').value;
     const descripcion = document.getElementById('descripcion').value;
     const precio = document.getElementById('precio').value;
     const imagen = document.getElementById('imagen').value;
 
-    // Crear un objeto con los datos del nuevo producto
+
     const newProduct = {
         titulo,
         descripcion,
