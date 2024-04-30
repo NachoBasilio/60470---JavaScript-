@@ -3,6 +3,7 @@ const botonCarrito = document.getElementById("carrito")
 const carritoFisico = document.getElementById("carritoFisico")
 const productosDOM = document.getElementById("productos")
 const agregadorDeProductos = document.getElementById('productForm')
+const contador = document.getElementById("contador")
 const arrayProductos = []
 
 botonCarrito.addEventListener("click", ()=>{
@@ -66,7 +67,7 @@ function crearTarjetaDeProducto({titulo, precio, imagen, descripcion}){
 }
 
 function llamado(){
-    fetch("http://localhost:3000/api/products/")
+    fetch("./info.json")
     .then(datos => {
        if(!datos.ok){
         throw new Error("Error al traer los datos")
@@ -77,7 +78,7 @@ function llamado(){
     .then(productos => {
     
         elementoPrincipal.innerHTML = ""
-        productos.forEach(producto => {
+        productos.articulos.forEach(producto => {
             crearTarjetaDeProducto(producto)
         })
         agregarEvento()
@@ -154,6 +155,8 @@ function agregarEvento (){
                 width: "350px"
             }).then(() => {
                 mostrarCarrito();
+                contador.innerText = miCarrito.articulos.length
+                
             });
         })
     })
