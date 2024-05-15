@@ -31,5 +31,3 @@ Se insta a los usuarios a utilizar este material de manera responsable y a adher
 Para preguntas, dudas o inquietudes sobre el uso adecuado de este material, por favor comuníquese con el propietario del repositorio a través del correo electrónico proporcionado en la sección de contacto.
 
 ¡Gracias por su comprensión y cooperación!
-
---- 
